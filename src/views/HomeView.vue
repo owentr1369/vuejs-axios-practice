@@ -1,13 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <currency-component :info="info"></currency-component>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import axios from "axios";
+
+import CurrencyComponent from "@/components/CurrencyComponent.vue";
 
 export default {
   name: "HomeView",
+  components: { CurrencyComponent },
+  data() {
+    return {
+      info: [],
+    };
+  },
+  created() {
+    axios
+      .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+      .then((response) => {
+        this.info = response.data;
+        console.log(this.info);
+      });
+  },
 };
 </script>
