@@ -2,13 +2,19 @@
   <div class="container">
     <h1>Task list</h1>
     <div class="item" v-for="(task, index) in tasks" :key="index">
-      <input type="checkbox" name="" :id="index" :checked="task.done" />
-      <label :for="index">{{ task.name }}</label>
+      <div>
+        <input type="checkbox" name="" :id="index" v-model="task.done" />
+        <label :for="index" :class="task.done ? 'completed' : ''">{{
+          task.name
+        }}</label>
+      </div>
+      <button @click="deleteTask(task.id)">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: { tasks: Array },
   data() {
@@ -16,17 +22,39 @@ export default {
       everthingIsReady: false,
     };
   },
+  methods: {
+    deleteTask(id) {
+      axios.delete(`http://localhost:3000/todoList/${id}`).then((response) => {
+        console.log(response);
+      });
+      this.$router.go("/");
+    },
+  },
+  watch: {
+    tasks() {
+      // console.log("re-render");
+    },
+  },
 };
 </script>
 
 <style>
 .container {
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   text-align: left;
-  margin-left: 40px;
+  padding: 10px 40px;
   width: 100%;
+  align-items: center;
+}
+.item {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.item button {
+  float: right;
 }
 .loading {
   width: 100%;
@@ -37,6 +65,10 @@ export default {
   font-size: 60px;
   animation: rotating 2s linear infinite;
   color: #42b983;
+}
+.completed {
+  text-decoration: line-through;
+  color: #999;
 }
 @keyframes rotating /* Safari and Chrome */ {
   from {
