@@ -1,29 +1,38 @@
-<template>
+<template >
   <div class="home">
-    <currency-component :info="info"></currency-component>
+    <task-list v-if="everthingIsReady" :tasks="tasks"></task-list>
+    <div class="loading" v-else>
+      <i class="fa-solid fa-spinner"></i>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import CurrencyComponent from "@/components/CurrencyComponent.vue";
+import TaskList from "@/components/TaskList.vue";
 
 export default {
   name: "HomeView",
-  components: { CurrencyComponent },
   data() {
     return {
-      info: [],
+      everthingIsReady: false,
+      tasks: [],
     };
   },
+  components: { TaskList },
   created() {
-    axios
-      .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-      .then((response) => {
-        this.info = response.data;
-        console.log(this.info);
-      });
+    axios.get("http://localhost:3000/todoList").then((response) => {
+      this.tasks = response.data;
+      console.log(this.tasks);
+    });
+  },
+  watch: {
+    tasks() {
+      if (this.tasks.length > 0) {
+        this.everthingIsReady = true;
+      }
+    },
   },
 };
 </script>

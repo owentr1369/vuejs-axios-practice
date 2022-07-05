@@ -1,39 +1,39 @@
 {
     "todoList": [
         {
-            "task": "HTML I",
+            "name": "HTML I",
             "done": true
         },
         {
-            "task": "CSS",
+            "name": "CSS",
             "done": true
         },
         {
-            "task": "Responsive design",
+            "name": "Responsive design",
             "done": true
         },
         {
-            "task": "Git",
+            "name": "Git",
             "done": true
         },
         {
-            "task": "JavaScript I",
+            "name": "JavaScript I",
             "done": true
         },
         {
-            "task": "JavaScript II",
+            "name": "JavaScript II",
             "done": false
         },
         {
-            "task": "Vue.js",
+            "name": "Vue.js",
             "done": false
         },
         {
-            "task": "Vue Router",
+            "name": "Vue Router",
             "done": false
         },
         {
-            "task": "VueX",
+            "name": "VueX",
             "done": false
         }
     ]
