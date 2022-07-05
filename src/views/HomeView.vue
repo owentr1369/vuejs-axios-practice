@@ -4,6 +4,8 @@
     <div class="loading" v-else>
       <i class="fa-solid fa-spinner"></i>
     </div>
+    <router-link :to="{ name: 'addtask' }">Add task</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
